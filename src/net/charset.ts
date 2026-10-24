@@ -1,5 +1,5 @@
 /**
- * Reading a page's bytes as text. One decoder for the library and for the studies built on it,
+ * Reading a page's bytes as text. One decoder for the library and for any program that uses it,
  * so a page in windows-1251, Shift_JIS, GBK or EUC-KR is counted the same everywhere. The order
  * is the one browsers use, shortened: a byte order mark; the `charset` of the Content-Type
  * header; a `<meta charset>` or `<meta http-equiv="Content-Type">` in the first 2 KiB; else

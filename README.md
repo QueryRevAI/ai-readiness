@@ -169,6 +169,11 @@ npx @queryrev/ai-readiness check https://www.example.com --fail-on fail
 
 The `examples/` folder has a CI script that acts on the exit codes (`ci.sh`), a plain-Node consumer of the JSON (`read-report.mjs`), and a robots.txt with a script that tests it (`robots.txt`, `robots-check.sh`).
 
+## In an MCP client and in GitHub
+
+- **MCP server.** [`@queryrev/ai-readiness-mcp`](https://www.npmjs.com/package/@queryrev/ai-readiness-mcp) offers the same checks as tools and works with any MCP client that starts a local server: `npx -y @queryrev/ai-readiness-mcp`. Each tool returns the document that `--json` prints. Its source is the `mcp/` folder of this repository.
+- **GitHub Action.** [`QueryRevAI/ai-readiness-action`](https://github.com/QueryRevAI/ai-readiness-action) fails a pull request when a change to `robots.txt` or `llms.txt` closes the site to AI search crawlers. It is offline by default.
+
 ## Licences
 
 - The code is MIT (see `LICENSE`).

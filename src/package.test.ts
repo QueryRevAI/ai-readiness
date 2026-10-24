@@ -55,10 +55,6 @@ const FORBIDDEN: [string, RegExp][] = [
     ),
   ],
   [
-    'a claim about a client that is not shipped',
-    new RegExp(['works with any M', 'CP client'].join(''), 'i'),
-  ],
-  [
     'an internal host',
     new RegExp(['rail', 'way|ver', 'cel|ing', 'est|ne', 'on\\.tech|sen', 'try'].join(''), 'i'),
   ],
@@ -75,7 +71,8 @@ const FORBIDDEN_IN_BUILT: [string, RegExp][] = [
 function filesUnder(folder: string, includeBuilt = false): string[] {
   const out: string[] = [];
   for (const name of readdirSync(folder)) {
-    if (name === 'node_modules' || name === '.turbo' || name === 'coverage') continue;
+    if (name === '.git' || name === 'node_modules' || name === '.turbo' || name === 'coverage')
+      continue;
     if (name === 'dist' && !includeBuilt) continue;
     const path = join(folder, name);
     if (statSync(path).isDirectory()) out.push(...filesUnder(path, includeBuilt));
@@ -179,8 +176,8 @@ describe('what a publish would carry', () => {
       // entry points are source files for the workspace; the tree that is published names the
       // built ones, and the export test below checks that manifest.)
       const manifest = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')) as unknown;
-      for (const target of stringsIn(manifest).filter((text) => text.startsWith('./dist/'))) {
-        expect(packed, target).toContain(target.slice(2));
+      for (const target of stringsIn(manifest).filter((text) => /^(?:\.\/)?dist\//.test(text))) {
+        expect(packed, target).toContain(target.replace(/^\.\//, ''));
       }
     },
     SLOW,
@@ -288,6 +285,9 @@ describe('the export script', () => {
           'scripts/check-publishable.mjs',
         );
         expect(manifest.version).toBe(ownManifest.version);
+        // The public repository also holds the MCP server in its folder mcp/, with tests of its
+        // own: the library's test run looks in src/ only, or it would collect those.
+        expect((manifest.scripts as Record<string, string>).test).toBe('vitest run --dir src');
         expect(manifest.publishConfig).toEqual({ access: 'public' });
         expect(manifest.main).toBe('./dist/index.js');
         expect(manifest.types).toBe('./dist/index.d.ts');
@@ -297,9 +297,13 @@ describe('the export script', () => {
         // Entry points are built files only: no source path, no development condition.
         const targets = stringsIn([manifest.exports, manifest.main, manifest.types, manifest.bin]);
         for (const target of targets.filter((entry) => entry !== './package.json')) {
-          expect(target.startsWith('./dist/'), target).toBe(true);
+          expect(/^(?:\.\/)?dist\//.test(target), target).toBe(true);
         }
+        // npm 11 removes a bin that starts with `./` (and says the script name was invalid).
+        expect(manifest.bin).toEqual({ 'ai-readiness': 'dist/cli.js' });
         expect(text).not.toMatch(/"development"|\.\/src\//);
+        // Line endings are LF in the repository, whatever machine exports the tree.
+        expect(readFileSync(join(tree, '.gitattributes'), 'utf8')).toBe('* text=auto eol=lf\n');
         // The release notes are internal: they stay in the repository.
         expect(existsSync(join(tree, 'RELEASING.md'))).toBe(false);
       } finally {
@@ -384,10 +388,15 @@ describe('the export script', () => {
           expect(uses.length, name).toBeGreaterThan(0);
           for (const action of uses) expect(action, name).toMatch(/^[\w./-]+@[0-9a-f]{40}$/);
         }
-        expect(release).toMatch(/tags:\s*\['v\*'\]/);
+        // Version tags only: a tag such as mcp-v1.0.0 (the MCP server's release) must not start it.
+        expect(release).toMatch(/tags:\s*\['v\[0-9\]\*'\]/);
         expect(release).toMatch(/id-token:\s*write/);
         expect(release).toContain('npm ci --ignore-scripts');
-        expect(release).toContain('npm publish --provenance --access public --ignore-scripts');
+        expect(release).toContain(
+          'npm stage publish --provenance --access public --ignore-scripts',
+        );
+        // The trusted publisher allows staging only, so a direct publish would be refused.
+        expect(release).not.toMatch(/npm publish\b/);
         expect(release).toMatch(/^ {4}environment: npm$/m);
         expect(release).toContain('node scripts/check-publishable.mjs');
         // The pull-request workflow can only read.
@@ -426,7 +435,8 @@ describe('the published surface', () => {
   });
 
   it('has one binary, built into dist, and one runtime dependency', () => {
-    expect(manifest.bin).toEqual({ 'ai-readiness': './dist/cli.js' });
+    // Written without `./`: npm 11 removes a bin that starts with it, with a warning.
+    expect(manifest.bin).toEqual({ 'ai-readiness': 'dist/cli.js' });
     expect(Object.keys(manifest.dependencies)).toEqual(['undici']);
   });
 
@@ -472,6 +482,10 @@ describe('the published surface', () => {
     expect(readme).toContain('security@queryrev.com');
     expect(readme).toContain('QueryRev-AIReadiness');
     expect(readme).toContain('10.5281/zenodo.23424275');
+    // The MCP server and the Action ship from the same organisation; the README links them.
+    expect(readme).toContain('https://www.npmjs.com/package/@queryrev/ai-readiness-mcp');
+    expect(readme).toContain('works with any MCP client');
+    expect(readme).toContain('https://github.com/QueryRevAI/ai-readiness-action');
     expect(readme).not.toMatch(/--min-score|\bscores?\b.*\/ ?100/i);
   });
 

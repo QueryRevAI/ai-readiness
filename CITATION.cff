@@ -8,7 +8,7 @@ abstract: >-
   and structured-data findings, each with its evidence. No model calls, no telemetry.
 authors:
   - name: 'QueryRev'
-version: 1.0.0
+version: 1.0.1
 date-released: '2026-10-24'
 license: MIT
 repository-code: 'https://github.com/QueryRevAI/ai-readiness'

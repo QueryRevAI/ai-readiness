@@ -1,12 +1,14 @@
-name: Release
+name: Release library
 
-# Publishes the package to npm when a version tag is pushed. There is no npm token or other secret
+# Stages the package (the repository root) for npm when a version tag vX.Y.Z is pushed. The MCP
+# server in the folder mcp/ has its own release, release-mcp.yml, started by tags mcp-vX.Y.Z; the
+# tag pattern below does not match those. There is no npm token or other secret
 # here: npm checks the run's own identity (trusted publishing, OpenID Connect) against the
 # publisher registered on npmjs.com for this repository, workflow file and environment, and the
-# package is published with a provenance statement that links it to this commit and run.
+# package is staged with a provenance statement that links it to this commit and run.
 on:
   push:
-    tags: ['v*']
+    tags: ['v[0-9]*']
 
 permissions:
   contents: read
@@ -73,6 +75,10 @@ jobs:
       - name: Check that package.json points at the built files
         run: node scripts/check-publishable.mjs
 
-      # The build has already run; no install or publish script runs again.
-      - name: Publish with provenance
-        run: npm publish --provenance --access public --ignore-scripts
+      # The trusted publisher on npmjs.com allows `npm stage publish` only. This step sends the
+      # package to npm's staging area, with a provenance statement, and does not need two-factor
+      # sign-in; the version goes live when a maintainer approves it on npmjs.com (Staged
+      # Packages tab) with two-factor sign-in. The build has already run; no install or
+      # publish script runs again.
+      - name: Stage with provenance
+        run: npm stage publish --provenance --access public --ignore-scripts
