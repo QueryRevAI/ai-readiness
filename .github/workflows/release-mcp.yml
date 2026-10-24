@@ -1,0 +1,94 @@
+name: Release MCP server
+
+# Stages @queryrev/ai-readiness-mcp (the folder mcp/) for npm when a tag mcp-vX.Y.Z is pushed.
+# The library's own release is release.yml, started by tags vX.Y.Z; the two tag patterns do not
+# overlap. There is no npm token or other secret here: npm checks the run's own identity
+# (trusted publishing, OpenID Connect) against the publisher registered on npmjs.com for this
+# repository, this workflow file and the environment below, and the package is staged with a
+# provenance statement that links it to this commit and run.
+on:
+  push:
+    tags: ['mcp-v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-mcp-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: mcp
+
+jobs:
+  publish:
+    name: Test, build and publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # The environment's required reviewer approves each release before the job starts, and the
+    # trusted publisher registered on npmjs.com names this environment.
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+
+      # Trusted publishing needs npm 11.5.1 or later. The version is pinned here, not taken from
+      # whatever the runner's Node ships.
+      - name: Install the npm version that supports trusted publishing
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund npm@11.21.1
+          npm --version
+
+      - name: Check that the tag is a release of this package
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          set -eu
+          version="$(node -p "require('./package.json').version")"
+          registry_version="$(node -p "require('./server.json').version")"
+          if [ "$TAG_NAME" != "mcp-v$version" ]; then
+            echo "::error::The tag $TAG_NAME does not match package.json version $version (expected mcp-v$version)."
+            exit 1
+          fi
+          if [ "$registry_version" != "$version" ]; then
+            echo "::error::server.json says $registry_version, package.json says $version."
+            exit 1
+          fi
+          if ! git branch --remote --contains "$GITHUB_SHA" | grep -q 'origin/main$'; then
+            echo "::error::The tagged commit is not on main."
+            exit 1
+          fi
+
+      - name: Install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Type-check
+        run: npm run typecheck
+
+      # Builds first, then runs the tests (the package's test script), the built server among them.
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Check that package.json is the published one
+        run: node scripts/check-publishable.mjs --bin-only
+
+      # The trusted publisher on npmjs.com allows `npm stage publish` only. This step sends the
+      # package to npm's staging area, with a provenance statement, and does not need two-factor
+      # sign-in; the version goes live when a maintainer approves it on npmjs.com (Staged
+      # Packages tab) with two-factor sign-in. The build has already run; no install or
+      # publish script runs again.
+      - name: Stage with provenance
+        run: npm stage publish --provenance --access public --ignore-scripts

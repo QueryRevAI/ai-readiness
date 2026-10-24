@@ -1,0 +1,64 @@
+{
+  "name": "@queryrev/ai-readiness-mcp",
+  "version": "1.0.0",
+  "description": "A local MCP server for QueryRev AI Readiness: AI crawler access, robots.txt and llms.txt checks, as tools. No model calls, no telemetry.",
+  "mcpName": "com.queryrev/ai-readiness",
+  "license": "MIT",
+  "author": "QueryRev",
+  "homepage": "https://queryrev.com/research/ai-search-readiness",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QueryRevAI/ai-readiness.git",
+    "directory": "mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/QueryRevAI/ai-readiness/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "robots.txt",
+    "llms.txt",
+    "ai-crawlers",
+    "geo",
+    "aeo",
+    "seo"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "sideEffects": false,
+  "bin": {
+    "ai-readiness-mcp": "dist/server.js"
+  },
+  "files": [
+    "dist",
+    "server.json",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vite build --config vite.build.config.ts",
+    "prepublishOnly": "node scripts/check-publishable.mjs --bin-only && npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "vite build --config vite.build.config.ts && vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@queryrev/ai-readiness": "^1.0.0",
+    "undici": "^8.12.3",
+    "zod": "4.6.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "eslint": "^9.39.5",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  }
+}

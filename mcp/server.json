@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.queryrev/ai-readiness",
+  "title": "QueryRev AI Readiness",
+  "description": "Checks a site for AI crawler access, robots.txt and llms.txt. Runs locally, no telemetry.",
+  "version": "1.0.0",
+  "websiteUrl": "https://queryrev.com/research/ai-search-readiness",
+  "repository": {
+    "url": "https://github.com/QueryRevAI/ai-readiness",
+    "source": "github",
+    "subfolder": "mcp"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@queryrev/ai-readiness-mcp",
+      "version": "1.0.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
