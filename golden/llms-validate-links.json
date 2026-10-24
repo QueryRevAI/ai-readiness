@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "command": "llms-validate",
+  "exitCode": 0,
+  "failOn": "fail",
+  "crawlersCovered": "Crawlers covered: the 11 AI crawlers on this list, from OpenAI, Perplexity, Google, Apple, Common Crawl, Meta, Amazon and ByteDance. Other crawlers are not checked.",
+  "source": {
+    "kind": "url",
+    "location": "http://site.test:PORT/llms.txt"
+  },
+  "report": {
+    "present": true,
+    "verdict": "llms_txt",
+    "status": 200,
+    "contentType": "text/plain",
+    "bytes": 110,
+    "truncated": false,
+    "h1": "Fixture Co",
+    "h1Count": 1,
+    "structure": {
+      "summary": true,
+      "sections": 1,
+      "links": 2,
+      "structured": true
+    }
+  },
+  "links": {
+    "skipped": 0,
+    "beyondLimit": 0,
+    "robotsRead": true,
+    "results": [
+      {
+        "url": "http://site.test:PORT/guide/start",
+        "outcome": "ok",
+        "status": 200
+      },
+      {
+        "url": "http://site.test:PORT/blog/post",
+        "outcome": "ok",
+        "status": 200
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "llms-txt-found",
+      "level": "pass",
+      "message": "The file is an llms.txt.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#llms-txt-found",
+      "snippet": "Fixture Co"
+    },
+    {
+      "id": "llms-txt-h1",
+      "level": "pass",
+      "message": "The file has one H1, as llmstxt.org asks.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#llms-txt-found"
+    },
+    {
+      "id": "llms-txt-summary",
+      "level": "pass",
+      "message": "The file has a summary blockquote.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#llms-txt-found"
+    },
+    {
+      "id": "llms-txt-sections",
+      "level": "pass",
+      "message": "The file has 1 H2 section of links and 2 links in all.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#llms-txt-found"
+    },
+    {
+      "id": "llms-txt-links",
+      "level": "pass",
+      "message": "All 2 checked links on this site answer 2xx.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#llms-txt-found"
+    }
+  ]
+}

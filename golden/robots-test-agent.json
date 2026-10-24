@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "command": "robots-test",
+  "exitCode": 1,
+  "failOn": "fail",
+  "path": "/blog",
+  "source": {
+    "kind": "file",
+    "location": "robots.txt"
+  },
+  "agent": "GPTBot",
+  "match": {
+    "allowed": false,
+    "via": "named",
+    "group": {
+      "line": 4,
+      "agents": [
+        "gptbot"
+      ]
+    },
+    "rule": {
+      "type": "disallow",
+      "pattern": "/",
+      "line": 5
+    }
+  },
+  "findings": [
+    {
+      "id": "robots-access",
+      "level": "fail",
+      "message": "GPTBot may not fetch /blog: the group for this agent (line 4), decided by line 5 (Disallow: /).",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "line 5: Disallow: /"
+    }
+  ]
+}

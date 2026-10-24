@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "command": "check",
+  "exitCode": 3,
+  "failOn": "fail",
+  "summary": {
+    "pass": 0,
+    "warn": 1,
+    "fail": 0,
+    "info": 0
+  },
+  "error": {
+    "code": "unreadable",
+    "message": "robots.txt answered 503"
+  },
+  "site": {
+    "schemaVersion": 1,
+    "origin": "http://site.test:PORT",
+    "host": "site.test",
+    "crawlersCovered": "Crawlers covered: the 11 AI crawlers on this list, from OpenAI, Perplexity, Google, Apple, Common Crawl, Meta, Amazon and ByteDance. Other crawlers are not checked.",
+    "robots": {
+      "url": "http://site.test:PORT/robots.txt",
+      "status": 503,
+      "bytes": 4,
+      "truncated": false,
+      "outcome": "not_read",
+      "sitemaps": [],
+      "allowsThisReader": false
+    },
+    "crawlerAccess": [],
+    "home": null,
+    "llms": {
+      "asked": false,
+      "present": false,
+      "verdict": null,
+      "bytes": 0,
+      "truncated": false,
+      "h1": null,
+      "sections": 0,
+      "links": 0
+    },
+    "sitemap": {
+      "asked": false,
+      "source": null,
+      "url": null,
+      "status": null,
+      "facts": null
+    },
+    "findings": [
+      {
+        "id": "robots-txt",
+        "level": "warn",
+        "message": "robots.txt could not be read, so nothing else was requested.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#method",
+        "snippet": "status 503"
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+# An example robots.txt for the `robots test` command: examples/robots-check.sh tests it.
+
+# Training crawlers are kept out of the whole site.
+User-agent: GPTBot
+User-agent: CCBot
+Disallow: /
+
+# Everyone else, AI search and user-fetch crawlers included, may read the site except the
+# account area and internal search results.
+User-agent: *
+Disallow: /account/
+Disallow: /search
+Allow: /
+
+Sitemap: https://www.example.com/sitemap.xml

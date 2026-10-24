@@ -1,0 +1,80 @@
+{
+  "name": "@queryrev/ai-readiness",
+  "version": "1.0.0",
+  "description": "robots.txt parsing, AI crawler access verdicts, llms.txt checks and a guarded network layer. No model calls.",
+  "license": "MIT",
+  "author": "QueryRev",
+  "homepage": "https://queryrev.com/research/ai-search-readiness",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QueryRevAI/ai-readiness.git"
+  },
+  "bugs": {
+    "url": "https://github.com/QueryRevAI/ai-readiness/issues"
+  },
+  "keywords": [
+    "robots.txt",
+    "llms.txt",
+    "ai-crawlers",
+    "geo",
+    "aeo",
+    "seo",
+    "cli"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "ai-readiness": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./cli": {
+      "types": "./dist/net/cli.d.ts",
+      "default": "./dist/net-cli.js"
+    },
+    "./run": {
+      "types": "./dist/cli/run.d.ts",
+      "default": "./dist/run.js"
+    },
+    "./testing": {
+      "types": "./dist/net/testing/index.d.ts",
+      "default": "./dist/testing.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "data",
+    "README.md",
+    "LICENSE",
+    "CITATION.cff",
+    "SECURITY.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vite build --config vite.build.config.ts && node scripts/build-types.mjs",
+    "prepublishOnly": "node scripts/check-publishable.mjs && npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "undici": "^8.12.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "eslint": "^9.39.5",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  }
+}

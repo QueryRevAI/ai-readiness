@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: 'If you use this software, please cite it using the metadata below.'
+type: software
+title: 'QueryRev AI Readiness'
+abstract: >-
+  Command line and library that read a site's public files and report how they treat AI
+  crawlers: robots.txt access for a list of AI crawlers, llms.txt validation and generation,
+  and structured-data findings, each with its evidence. No model calls, no telemetry.
+authors:
+  - name: 'QueryRev'
+version: 1.0.0
+date-released: '2026-10-24'
+license: MIT
+repository-code: 'https://github.com/QueryRevAI/ai-readiness'
+url: 'https://queryrev.com/research/ai-search-readiness'
+keywords:
+  - robots.txt
+  - llms.txt
+  - AI crawlers
+  - generative engine optimization
+  - answer engine optimization
+references:
+  - type: dataset
+    title: 'State of AI Crawler Access (October 2026)'
+    authors:
+      - name: 'QueryRev Research'
+    year: 2026
+    doi: 10.5281/zenodo.23424275
+    license: CC-BY-4.0
+    publisher:
+      name: Zenodo

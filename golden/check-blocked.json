@@ -1,0 +1,281 @@
+{
+  "schemaVersion": 1,
+  "command": "check",
+  "exitCode": 1,
+  "failOn": "fail",
+  "summary": {
+    "pass": 12,
+    "warn": 0,
+    "fail": 1,
+    "info": 3
+  },
+  "site": {
+    "schemaVersion": 1,
+    "origin": "http://site.test:PORT",
+    "host": "site.test",
+    "crawlersCovered": "Crawlers covered: the 11 AI crawlers on this list, from OpenAI, Perplexity, Google, Apple, Common Crawl, Meta, Amazon and ByteDance. Other crawlers are not checked.",
+    "robots": {
+      "url": "http://site.test:PORT/robots.txt",
+      "status": 200,
+      "bytes": 38,
+      "truncated": false,
+      "outcome": "file",
+      "sitemaps": [],
+      "allowsThisReader": true
+    },
+    "crawlerAccess": [
+      {
+        "token": "GPTBot",
+        "purpose": "training",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "OAI-SearchBot",
+        "purpose": "search",
+        "access": "blocked",
+        "root": false
+      },
+      {
+        "token": "ChatGPT-User",
+        "purpose": "user",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "PerplexityBot",
+        "purpose": "search",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "Perplexity-User",
+        "purpose": "user",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "Google-Extended",
+        "purpose": "training",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "Applebot-Extended",
+        "purpose": "training",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "CCBot",
+        "purpose": "training",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "Meta-ExternalAgent",
+        "purpose": "training",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "Amazonbot",
+        "purpose": "search",
+        "access": "allowed",
+        "root": true
+      },
+      {
+        "token": "Bytespider",
+        "purpose": "training",
+        "access": "allowed",
+        "root": true
+      }
+    ],
+    "home": {
+      "requestedUrl": "http://site.test:PORT/",
+      "finalUrl": "http://site.test:PORT/",
+      "status": 200,
+      "redirects": 0,
+      "truncated": false,
+      "facts": {
+        "url": "http://site.test:PORT/",
+        "host": "site.test",
+        "bytes": 1503,
+        "scanTruncated": false,
+        "mainWords": 202,
+        "wordsCapped": false,
+        "mainSource": "main",
+        "content": "text_in_html",
+        "appRoot": false,
+        "jsNotice": false,
+        "botCheck": false,
+        "noindex": false,
+        "noindexSource": null,
+        "jsonLd": {
+          "scripts": 1,
+          "parsed": 1,
+          "schemaOrgBlocks": 1,
+          "errors": 0,
+          "bounds": []
+        },
+        "types": [
+          "Organization"
+        ],
+        "microdataTypes": [],
+        "organization": "json_ld",
+        "organizationType": "Organization",
+        "primary": {
+          "type": "Organization",
+          "name": "Fixture Co",
+          "url": "https://site.test/",
+          "nameAndUrl": true,
+          "logo": true,
+          "sameAs": [
+            "https://www.linkedin.com/company/fixture",
+            "https://www.wikidata.org/wiki/Q1"
+          ],
+          "sameAsKinds": [
+            "wikidata",
+            "linkedin"
+          ]
+        },
+        "website": false,
+        "searchAction": false,
+        "faqPage": false
+      },
+      "outcome": "read"
+    },
+    "llms": {
+      "asked": true,
+      "present": true,
+      "verdict": "llms_txt",
+      "bytes": 110,
+      "truncated": false,
+      "h1": "Fixture Co",
+      "sections": 1,
+      "links": 2
+    },
+    "sitemap": {
+      "asked": true,
+      "source": "well_known",
+      "url": "http://site.test:PORT/sitemap.xml",
+      "status": 200,
+      "facts": {
+        "outcome": "valid",
+        "kind": "urlset",
+        "reason": null,
+        "locs": 3,
+        "gzip": false,
+        "truncated": false,
+        "bytes": 259
+      }
+    },
+    "findings": [
+      {
+        "id": "robots-txt",
+        "level": "pass",
+        "message": "robots.txt found (38 bytes).",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#method"
+      },
+      {
+        "id": "sitemap-in-robots",
+        "level": "info",
+        "message": "robots.txt lists no sitemap.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#sitemap-in-robots"
+      },
+      {
+        "id": "ai-search-crawler-access",
+        "level": "fail",
+        "message": "robots.txt keeps 1 of 5 AI search and user-fetch crawlers from the home page.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+        "snippet": "OAI-SearchBot"
+      },
+      {
+        "id": "ai-training-crawler-access",
+        "level": "info",
+        "message": "No AI training crawler on the list is blocked. Blocking them is the site's choice.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#method"
+      },
+      {
+        "id": "home-page-read",
+        "level": "pass",
+        "message": "The home page was read.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#home-pages-read",
+        "snippet": "200 http://site.test:PORT/"
+      },
+      {
+        "id": "noindex-home-page",
+        "level": "pass",
+        "message": "The home page does not say noindex.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#noindex-home-page"
+      },
+      {
+        "id": "text-in-html",
+        "level": "pass",
+        "message": "The page carries 202 words of text in the HTML as served.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#text-in-html",
+        "snippet": "main text: 202 words (main element)"
+      },
+      {
+        "id": "json-ld-on-home-page",
+        "level": "pass",
+        "message": "The home page has 1 JSON-LD block naming schema.org.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#json-ld-on-home-page",
+        "snippet": "Organization"
+      },
+      {
+        "id": "organization-schema",
+        "level": "pass",
+        "message": "The home page describes the organization in JSON-LD (Organization).",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#organization-schema",
+        "snippet": "Fixture Co"
+      },
+      {
+        "id": "organization-name-and-url",
+        "level": "pass",
+        "message": "The Organization has a name and a url.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#organization-name-and-url",
+        "snippet": "Fixture Co https://site.test/"
+      },
+      {
+        "id": "organization-logo",
+        "level": "pass",
+        "message": "The Organization has a logo.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#organization-logo"
+      },
+      {
+        "id": "organization-same-as",
+        "level": "pass",
+        "message": "The Organization links 2 profiles elsewhere with sameAs.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#organization-same-as",
+        "snippet": "wikidata, linkedin"
+      },
+      {
+        "id": "website-schema",
+        "level": "info",
+        "message": "The home page has no WebSite data.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#website-schema"
+      },
+      {
+        "id": "llms-txt-found",
+        "level": "pass",
+        "message": "An llms.txt is present.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#llms-txt-found",
+        "snippet": "Fixture Co"
+      },
+      {
+        "id": "llms-txt-structure",
+        "level": "pass",
+        "message": "The llms.txt has 1 section and 2 links.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#method"
+      },
+      {
+        "id": "sitemap-valid",
+        "level": "pass",
+        "message": "A valid sitemap lists 3 pages.",
+        "docUrl": "https://queryrev.com/research/ai-search-readiness#sitemap-valid",
+        "snippet": "http://site.test:PORT/sitemap.xml"
+      }
+    ]
+  }
+}

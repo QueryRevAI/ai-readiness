@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "command": "robots-test",
+  "exitCode": 0,
+  "failOn": "fail",
+  "path": "/",
+  "source": {
+    "kind": "file",
+    "location": "robots.txt"
+  },
+  "crawlersCovered": "Crawlers covered: the 11 AI crawlers on this list, from OpenAI, Perplexity, Google, Apple, Common Crawl, Meta, Amazon and ByteDance. Other crawlers are not checked.",
+  "crawlers": [
+    {
+      "token": "GPTBot",
+      "purpose": "training",
+      "vendor": "OpenAI",
+      "siteAccess": "blocked",
+      "match": {
+        "allowed": false,
+        "via": "named",
+        "group": {
+          "line": 4,
+          "agents": [
+            "gptbot"
+          ]
+        },
+        "rule": {
+          "type": "disallow",
+          "pattern": "/",
+          "line": 5
+        }
+      }
+    },
+    {
+      "token": "OAI-SearchBot",
+      "purpose": "search",
+      "vendor": "OpenAI",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "ChatGPT-User",
+      "purpose": "user",
+      "vendor": "OpenAI",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "PerplexityBot",
+      "purpose": "search",
+      "vendor": "Perplexity",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "Perplexity-User",
+      "purpose": "user",
+      "vendor": "Perplexity",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "Google-Extended",
+      "purpose": "training",
+      "vendor": "Google",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "Applebot-Extended",
+      "purpose": "training",
+      "vendor": "Apple",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "CCBot",
+      "purpose": "training",
+      "vendor": "Common Crawl",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "Meta-ExternalAgent",
+      "purpose": "training",
+      "vendor": "Meta",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "Amazonbot",
+      "purpose": "search",
+      "vendor": "Amazon",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    },
+    {
+      "token": "Bytespider",
+      "purpose": "training",
+      "vendor": "ByteDance",
+      "siteAccess": "allowed",
+      "match": {
+        "allowed": true,
+        "via": "catch_all",
+        "group": {
+          "line": 1,
+          "agents": [
+            "*"
+          ]
+        },
+        "rule": null
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "robots-access-gptbot",
+      "level": "info",
+      "message": "GPTBot may not fetch /: the group for this agent (line 4), decided by line 5 (Disallow: /).",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "line 5: Disallow: /"
+    },
+    {
+      "id": "robots-access-oai-searchbot",
+      "level": "pass",
+      "message": "OAI-SearchBot may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-chatgpt-user",
+      "level": "pass",
+      "message": "ChatGPT-User may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-perplexitybot",
+      "level": "pass",
+      "message": "PerplexityBot may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-perplexity-user",
+      "level": "pass",
+      "message": "Perplexity-User may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-google-extended",
+      "level": "pass",
+      "message": "Google-Extended may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-applebot-extended",
+      "level": "pass",
+      "message": "Applebot-Extended may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-ccbot",
+      "level": "pass",
+      "message": "CCBot may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-meta-externalagent",
+      "level": "pass",
+      "message": "Meta-ExternalAgent may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-amazonbot",
+      "level": "pass",
+      "message": "Amazonbot may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    },
+    {
+      "id": "robots-access-bytespider",
+      "level": "pass",
+      "message": "Bytespider may fetch /: the \"*\" group (line 1), and no rule matches.",
+      "docUrl": "https://queryrev.com/research/ai-search-readiness#readable-by-ai-search",
+      "snippet": "\"*\" group at line 1, no rule matches"
+    }
+  ]
+}

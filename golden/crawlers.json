@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "command": "crawlers",
+  "exitCode": 0,
+  "crawlersCovered": "Crawlers covered: the 11 AI crawlers on this list, from OpenAI, Perplexity, Google, Apple, Common Crawl, Meta, Amazon and ByteDance. Other crawlers are not checked.",
+  "crawlers": [
+    {
+      "token": "GPTBot",
+      "vendor": "OpenAI",
+      "purpose": "training"
+    },
+    {
+      "token": "OAI-SearchBot",
+      "vendor": "OpenAI",
+      "purpose": "search"
+    },
+    {
+      "token": "ChatGPT-User",
+      "vendor": "OpenAI",
+      "purpose": "user"
+    },
+    {
+      "token": "PerplexityBot",
+      "vendor": "Perplexity",
+      "purpose": "search"
+    },
+    {
+      "token": "Perplexity-User",
+      "vendor": "Perplexity",
+      "purpose": "user"
+    },
+    {
+      "token": "Google-Extended",
+      "vendor": "Google",
+      "purpose": "training"
+    },
+    {
+      "token": "Applebot-Extended",
+      "vendor": "Apple",
+      "purpose": "training"
+    },
+    {
+      "token": "CCBot",
+      "vendor": "Common Crawl",
+      "purpose": "training"
+    },
+    {
+      "token": "Meta-ExternalAgent",
+      "vendor": "Meta",
+      "purpose": "training"
+    },
+    {
+      "token": "Amazonbot",
+      "vendor": "Amazon",
+      "purpose": "search"
+    },
+    {
+      "token": "Bytespider",
+      "vendor": "ByteDance",
+      "purpose": "training"
+    }
+  ]
+}

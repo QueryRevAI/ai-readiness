@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "command": "llms-generate",
+  "exitCode": 0,
+  "crawlersCovered": "Crawlers covered: the 11 AI crawlers on this list, from OpenAI, Perplexity, Google, Apple, Common Crawl, Meta, Amazon and ByteDance. Other crawlers are not checked.",
+  "result": {
+    "schemaVersion": 1,
+    "outcome": "generated",
+    "origin": "http://site.test:PORT",
+    "host": "site.test",
+    "text": "# Fixture Co\n\n> Fixtures for tests.\n\n## Main pages\n\n- [Fixture Co](http://site.test:PORT/): Fixtures for tests.\n\n## Guide\n\n- [Getting started](http://site.test:PORT/guide/start): Begin here with the first steps.\n\n## Blog\n\n- [A post](http://site.test:PORT/blog/post): What happened this week.\n",
+    "site": {
+      "name": "Fixture Co",
+      "summary": "Fixtures for tests."
+    },
+    "pages": [
+      {
+        "url": "http://site.test:PORT/",
+        "title": "Fixture Co",
+        "description": "Fixtures for tests."
+      },
+      {
+        "url": "http://site.test:PORT/guide/start",
+        "title": "Getting started",
+        "description": "Begin here with the first steps."
+      },
+      {
+        "url": "http://site.test:PORT/blog/post",
+        "title": "A post",
+        "description": "What happened this week."
+      }
+    ],
+    "source": "sitemap",
+    "skipped": [
+      {
+        "url": "http://site.test:PORT/private/hidden",
+        "reason": "robots"
+      }
+    ],
+    "budgetReached": false,
+    "notes": []
+  }
+}
